@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" id="viewport" content="width=device-width, target-densitydpi=160, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>2021 U.S. Open</title>
+		<link href="css/normalize.css" type="text/css" rel="stylesheet">
+		<link href="css/grid.css" type="text/css" rel="stylesheet">
+		<link href="css/styles.css" type="text/css" rel="stylesheet">
+	</head>
+	<body>
+		<script id="golfers-template" type="text/x-handlebars-template">
+			<table class="wide">
+				<tr>
+					<th>place</th>
+					<th>name</th>
+					<th>today</th>
+					<th>overall</th>
+				</tr>
+				{{#each competitors}}
+					<tr class="{{getPlayerClass this}}">
+						<td>{{getPosition this}}</td>
+						<td>{{athlete.displayName}}</td>
+						<td>{{getTodaysScore this}}</td>
+						<td>{{getTotalPlayerScore this}}</td>
+					</tr>
+				{{/each}}
+			</table>
+		</script>
+		<script id="team-template" type="text/x-handlebars-template">
+			<div class="wide">
+				<div class="team-header">
+					<div>team</div>
+					<div>total score</div>
+					<div>details</div>
+				</div>
+				{{#each teams}}
+					<div id="team-{{name}}" class="team">
+						<div class="col">
+							<div class="team-name">{{name}}</div>
+						</div>
+						<div class="col">
+							<div class="team-total-score">{{totalScore}}</div>
+						</div>
+						<div class="col">
+							<div class="details">
+								<a href="#">details</a>
+							</div>
+						</div>
+						<div class="clr"></div>
+
+						<div class="breakdown">
+							{{#each individuals}}
+								<div class="player">
+									<div class="player-name {{#unless madeCut}} missed-cut{{/unless}}">
+										{{name}} -- {{score}} {{getPoints this}} {{#unless madeCut}} (CUT){{/unless}}
+									</div>
+								</div>
+							{{/each}}
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		</script>
+		<script id="header-template" type="text/x-handlebars-template">
+			<div class="header-wrap">
+				<div class="header">
+					{{tournamentName}}
+				</div>
+			</div>
+		</script>
+		<div class="container">
+			<div class="row clearfix">
+				<div id="header" class="column full">
+				</div>
+			</div>
+			<div class="refresher-wrap">
+				<div class="refresher">Refreshing Leaderboard</div>
+				<div class="last-updated"></div>
+			</div>
+			<div class="leaderboard">
+				<div class="title">Fantasy Leaderboard</div>
+				<div id="fantasy-leaderboard"></div>
+			</div>
+			<div class="leaderboard">
+				<div class="title">Full Leaderboard</div>
+				<div id="leaderboard"></div>
+			</div>
+		</div>
+        <script src="js/shims.js"></script>
+        <script src="js/lodash-4.17.20.min.js"></script>
+		<script src="js/jquery-1.11.0.min.js"></script>
+        <script src="js/handlebars-v1.3.0.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
